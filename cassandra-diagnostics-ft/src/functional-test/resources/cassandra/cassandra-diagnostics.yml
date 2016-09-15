@@ -1,0 +1,14 @@
+reporters:
+  - reporter: io.smartcat.cassandra.diagnostics.reporter.CassandraReporter
+    options:
+      contactPoint: cassandra
+
+      reporter: io.smartcat.cassandra.diagnostics.reporter.CassandraReporter
+
+modules:
+  - module: io.smartcat.cassandra.diagnostics.module.slowquery.SlowQueryModule
+    measurement: queryReport
+    options:
+      slowQueryThresholdInMilliseconds: 0
+    reporters:
+      - io.smartcat.cassandra.diagnostics.reporter.CassandraReporter

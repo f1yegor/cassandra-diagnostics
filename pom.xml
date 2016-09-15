@@ -20,6 +20,7 @@
         <module>cassandra-diagnostics-core</module>
         <module>cassandra-diagnostics-reporter-influx</module>
         <module>cassandra-diagnostics-reporter-riemann</module>
+        <module>cassandra-diagnostics-reporter-cassandra</module>
         <module>cassandra-diagnostics-connector21</module>
         <module>cassandra-diagnostics-connector30</module>
         <module>cassandra-diagnostics-ft</module>

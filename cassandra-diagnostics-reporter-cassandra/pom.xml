@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>io.smartcat</groupId>
+		<artifactId>cassandra-diagnostics</artifactId>
+		<version>1.1.2-SNAPSHOT</version>
+	</parent>
+	<artifactId>cassandra-diagnostics-reporter-cassandra</artifactId>
+
+	<properties>
+		<version.cassandra.driver>2.1.10.2</version.cassandra.driver>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>io.smartcat</groupId>
+			<artifactId>cassandra-diagnostics-commons</artifactId>
+			<version>1.1.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+      <groupId>com.datastax.cassandra</groupId>
+      <artifactId>cassandra-driver-core</artifactId>
+      <version>${version.cassandra.driver}</version>
+    </dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<shadedArtifactAttached>true</shadedArtifactAttached>
+							<shadedClassifierName>all</shadedClassifierName>
+							<artifactSet>
+								<includes>
+									<include>com.datastax.cassandra:com.datastax.cassandra:*</include>
+									<include>com.squareup.retrofit:retrofit:*</include>
+									<include>com.google.code.gson:gson:*</include>
+									<include>com.squareup.okhttp:okhttp:*</include>
+									<include>com.squareup.okio:okio:*</include>
+								</includes>
+							</artifactSet>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
