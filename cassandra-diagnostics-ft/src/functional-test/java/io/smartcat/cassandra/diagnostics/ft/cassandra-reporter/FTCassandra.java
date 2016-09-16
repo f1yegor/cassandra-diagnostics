@@ -16,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 import org.apache.cassandra.exceptions.ConfigurationException;
 import org.apache.thrift.transport.TTransportException;
 import org.assertj.core.api.Assertions;
+import org.influxdb.dto.Query;
+import org.influxdb.dto.QueryResult;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -46,10 +48,17 @@ public class FTCassandra {
         session.execute("CREATE TABLE IF NOT EXISTS test_keyspace.test_table (uid uuid PRIMARY KEY);");
         session.execute("SELECT * FROM test_keyspace.test_table");
         cluster.close();
-        
-        ResultSet result = session.execute("SELECT * FROM cassandra_dianostics.measurements");
-        int measurementsCount = result.all().size();
 
-        Assertions.assertThat(measurementsCount).isEqualTo(2);
+        int measurementsCount = 0;
+        for (int i = 0; i < 10; i++) {
+            ResultSet result = session.execute("SELECT * FROM cassandra_dianostics.measurements");
+            measurementsCount = result.all().size();
+            if (measurementsCount == 1) {
+                break;
+            }
+            Thread.sleep(500);
+        }
+
+        Assertions.assertThat(measurementsCount).isEqualTo(1);
     }
 }

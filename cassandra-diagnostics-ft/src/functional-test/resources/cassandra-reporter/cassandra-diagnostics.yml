@@ -1,7 +1,7 @@
 reporters:
   - reporter: io.smartcat.cassandra.diagnostics.reporter.CassandraReporter
     options:
-      contactPoint: cassandra
+      contactPoint: 127.0.0.1
 
       reporter: io.smartcat.cassandra.diagnostics.reporter.CassandraReporter
 

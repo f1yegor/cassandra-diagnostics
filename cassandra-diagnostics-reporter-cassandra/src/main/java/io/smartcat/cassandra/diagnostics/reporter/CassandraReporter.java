@@ -68,13 +68,13 @@ public class CassandraReporter extends Reporter {
         consistencyLevel = ConsistencyLevel
                 .valueOf(configuration.getDefaultOption(CONSISTENCY_LEVEL_PROP, DEFAULT_CONSISTENCY_LEVEL));
 
-        Cluster cluster = Cluster.builder().addContactPoints(contactPoint).withPort(port).build();
-        session = cluster.connect();
+        Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1").withPort(port).build();
+        // session = cluster.connect();
 
-        createKeyspaceIfNotExists(keyspace);
-        createMeasurementTableIfNotExists();
-        insertMeasurementStatement = session.prepare("INSERT INTO " + keyspace
-                + ".measurements (name, host, date, timestamp, value, fields, tags) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        // createKeyspaceIfNotExists(keyspace);
+        // createMeasurementTableIfNotExists();
+        // insertMeasurementStatement = session.prepare("INSERT INTO " + keyspace
+        // + ".measurements (name, host, date, timestamp, value, fields, tags) VALUES (?, ?, ?, ?, ?, ?, ?)");
     }
 
     private void createKeyspaceIfNotExists(final String keyspace) {
